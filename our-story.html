@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The GCODE Nonprofit Systems — Our Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --navy: #0F1B2D;
+  --navy-light: #1a2d47;
+  --teal: #0D9488;
+  --teal-light: #14b8a6;
+  --teal-dark: #0a7c72;
+  --coral: #F97066;
+  --amber: #F59E0B;
+  --purple: #8B5CF6;
+  --blue: #3B82F6;
+  --green: #10B981;
+  --sky: #06B6D4;
+  --white: #FFFFFF;
+  --off-white: #F8FAFC;
+  --gray-100: #F1F5F9;
+  --gray-200: #E2E8F0;
+  --gray-500: #64748B;
+  --gray-700: #334155;
+  --gradient-1: linear-gradient(135deg, #0D9488, #3B82F6);
+  --gradient-2: linear-gradient(135deg, #F97066, #F59E0B);
+  --gradient-3: linear-gradient(135deg, #8B5CF6, #EC4899);
+  --gradient-hero: linear-gradient(135deg, #0F1B2D 0%, #1a3a5c 50%, #0D9488 100%);
+}
+body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); background: var(--white); overflow-x: hidden; line-height: 1.6; }
+
+/* ── TOP BAR ── */
+.top-bar {
+  background: var(--navy);
+  color: var(--white);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  position: relative;
+  z-index: 200;
+}
+.top-bar-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.top-bar-logo span { color: var(--teal-light); }
+.top-bar-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.top-bar-link {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+.top-bar-link:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+.top-bar-link i { margin-right: 6px; font-size: 13px; }
+.login-btn {
+  background: var(--teal);
+  color: var(--white) !important;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  margin-left: 8px;
+}
+.login-btn:hover { background: var(--teal-dark); }
+.login-btn i { margin-right: 6px; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--gradient-hero);
+  color: var(--white);
+  padding: 90px 20px 70px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(13,148,136,0.3) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(249,112,102,0.2) 0%, transparent 40%);
+  animation: float 20s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(1deg); }
+  66% { transform: translate(-20px, 20px) rotate(-1deg); }
+}
+.hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 100px;
+  padding: 8px 24px; font-size: 13px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; color: var(--teal-light);
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 800; line-height: 1.15; margin-bottom: 20px;
+}
+.hero h1 span { color: var(--teal-light); }
+.hero p {
+  font-size: 1.15rem; max-width: 640px; margin: 0 auto;
+  opacity: 0.9; line-height: 1.7;
+}
+
+/* ── NARRATIVE SECTION ── */
+.narrative {
+  padding: 80px 20px;
+  background: var(--white);
+}
+.narrative-container {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.narrative p {
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: var(--gray-700);
+  margin-bottom: 28px;
+}
+.narrative p:last-child {
+  margin-bottom: 0;
+}
+.narrative .highlight {
+  color: var(--navy);
+  font-weight: 600;
+}
+.narrative .accent {
+  color: var(--teal-dark);
+  font-weight: 600;
+}
+
+/* ── PULL QUOTE ── */
+.pull-quote {
+  background: var(--off-white);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 16px 16px 0;
+  padding: 32px 36px;
+  margin: 40px 0;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--navy);
+  line-height: 1.7;
+  position: relative;
+}
+.pull-quote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  color: var(--teal);
+  opacity: 0.3;
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  line-height: 1;
+}
+
+/* ── VISUAL BREAK — THE CHAIN ── */
+.chain-section {
+  padding: 70px 20px;
+  background: var(--off-white);
+}
+.chain-container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+.chain-container h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 50px;
+}
+.chain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chain-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.chain-node {
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  border-radius: 14px;
+  padding: 14px 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--navy);
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.chain-node:hover {
+  border-color: var(--teal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(13,148,136,0.12);
+}
+.chain-node i {
+  font-size: 16px;
+  color: var(--teal);
+}
+.chain-arrow {
+  color: var(--teal);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* ── BUILT BY PEOPLE WHO KNOW ── */
+.origin-section {
+  padding: 70px 20px;
+  background: var(--white);
+}
+.origin-container {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.origin-container p {
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: var(--gray-700);
+  margin-bottom: 28px;
+}
+
+/* ── CTA ── */
+.cta-section {
+  background: var(--gradient-hero);
+  padding: 70px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle at 60% 40%, rgba(13,148,136,0.25) 0%, transparent 50%);
+}
+.cta-content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.cta-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.cta-content p {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+.cta-btn {
+  display: inline-block;
+  background: var(--teal-light);
+  color: var(--white);
+  padding: 16px 40px;
+  border-radius: 100px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+.cta-btn:hover {
+  background: transparent;
+  border-color: var(--teal-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(13,148,136,0.3);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .top-bar-logo { font-size: 1rem; }
+  .hide-mobile { display: none; }
+  .hero { padding: 60px 16px 50px; }
+  .narrative, .origin-section { padding: 50px 16px; }
+  .chain-section { padding: 50px 16px; }
+  .chain { flex-direction: column; gap: 12px; }
+  .chain-step { flex-direction: column; gap: 4px; }
+  .chain-arrow { transform: rotate(90deg); }
+  .pull-quote { padding: 24px 20px 24px 24px; font-size: 1.05rem; }
+  .cta-section { padding: 50px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── TOP BAR ── -->
+<header class="top-bar">
+  <a class="top-bar-logo" href="index.html">The GCODE <span>Nonprofit Systems</span></a>
+  <div class="top-bar-links">
+    <a class="top-bar-link hide-mobile" href="features.html"><i class="fas fa-th-large"></i>Features</a>
+    <a class="top-bar-link hide-mobile" href="support.html"><i class="fas fa-headset"></i>Support</a>
+    <a class="login-btn" href="https://app.thegcodesystems.com/login"><i class="fas fa-right-to-bracket"></i> Log In</a>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Our Story</div>
+    <h1>We Built the System <span>We Wished We Had</span></h1>
+    <p>After 15+ years running databases, writing grant reports, and sitting across the desk from people asking for help — we built software that finally connects the entire chain of care.</p>
+  </div>
+</section>
+
+<!-- ── THE NARRATIVE ── -->
+<section class="narrative">
+  <div class="narrative-container">
+
+    <p>Think about what happens when someone walks into a homeless shelter, a mental health clinic, or a community center and says <span class="accent">"I need help."</span></p>
+
+    <p>From that moment, a whole chain of work starts. Someone takes down their information. Someone figures out which programs they qualify for. Case managers start writing notes, logging services, tracking whether that person is actually getting better. Meanwhile, the organization has to pay its staff, track their hours, manage schedules, and at the end of every month or quarter, <span class="highlight">prove to the people who fund them</span> — the government, foundations, Medicaid — that the money was spent correctly and the services were delivered.</p>
+
+    <p>Most nonprofits are juggling four or five different software systems to do all of that. One for case management, one for timekeeping, one for accounting, one for reporting, maybe spreadsheets filling the gaps. Staff waste hours re-entering the same information in different places. Reports take days to pull together. And things fall through the cracks — a client misses an appointment and nobody notices for two weeks.</p>
+
+    <div class="pull-quote">
+      We didn't start with a blank whiteboard. We started with years of doing this work ourselves — and a long list of frustrations with the tools we were given.
+    </div>
+
+    <p>The GCODE Nonprofit Systems is <span class="highlight">one platform that handles all of it.</span> A new client walks in the door, and from intake all the way through to the financial report that goes to the funder, it's all connected. Case notes, service records, housing placements, staff timesheets, payroll, scheduling, messaging, training, consent forms — all in one place.</p>
+
+    <p>The part that really sets it apart is <span class="accent">funding tracking.</span> Every service a staff member logs, every hour they work, every dollar spent — the system traces it back to the specific grant or contract that's paying for it. When it's time to report to a funder, the data is already there. No scrambling. No spreadsheets. No guessing.</p>
+
+  </div>
+</section>
+
+<!-- ── THE CHAIN ── -->
+<section class="chain-section">
+  <div class="chain-container">
+    <h2>From Intake to Funder Report — One Unbroken Line</h2>
+    <div class="chain">
+      <div class="chain-step">
+        <div class="chain-node"><i class="fa-solid fa-clipboard-user"></i> Intake</div>
+        <div class="chain-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+      <div class="chain-step">
+        <div class="chain-node"><i class="fa-solid fa-hand-holding-heart"></i> Services</div>
+        <div class="chain-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+      <div class="chain-step">
+        <div class="chain-node"><i class="fa-solid fa-house-chimney"></i> Housing</div>
+        <div class="chain-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+      <div class="chain-step">
+        <div class="chain-node"><i class="fa-solid fa-clock"></i> Timekeeping</div>
+        <div class="chain-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+      <div class="chain-step">
+        <div class="chain-node"><i class="fa-solid fa-dollar-sign"></i> Payroll</div>
+        <div class="chain-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+      <div class="chain-step">
+        <div class="chain-node"><i class="fa-solid fa-chart-line"></i> Funder Report</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ORIGIN ── -->
+<section class="origin-section">
+  <div class="origin-container">
+    <p>This platform wasn't built from a tech background by people guessing at what nonprofits need. It was built by people who spent years <span class="highlight">doing this work themselves</span> — running HMIS databases, writing grant reports, managing case loads, training front-line staff. People who sat across the desk from a client and then had to go fight a spreadsheet to prove the interaction happened.</p>
+
+    <p>That experience is in every design decision. Why the intake form works on a phone. Why every service auto-links to a funding source. Why the housing module tracks beds <em>and</em> units. Why the system creates a HIPAA-compliant audit trail without anyone having to think about it.</p>
+
+    <p><span class="accent">We built the system we wished we'd had</span> — and we built it so that your staff can spend more time with the people they serve and less time fighting their software.</p>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <div class="cta-content">
+    <h2>Ready to See It in Action?</h2>
+    <p>Let us show you how The GCODE Nonprofit Systems can simplify your organization's operations — from the front desk to the funder report.</p>
+    <a href="mailto:systemadmin@thegcodesystems.com" class="cta-btn">Request a Demo</a>
+  </div>
+</section>
+
+</body>
+</html>

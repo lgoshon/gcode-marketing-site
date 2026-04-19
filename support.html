@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The GCODE Nonprofit Systems — Help & Support</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --navy: #0F1B2D;
+  --navy-light: #1a2d47;
+  --teal: #0D9488;
+  --teal-light: #14b8a6;
+  --teal-dark: #0a7c72;
+  --coral: #F97066;
+  --amber: #F59E0B;
+  --purple: #8B5CF6;
+  --blue: #3B82F6;
+  --pink: #EC4899;
+  --green: #10B981;
+  --sky: #06B6D4;
+  --white: #FFFFFF;
+  --off-white: #F8FAFC;
+  --gray-100: #F1F5F9;
+  --gray-200: #E2E8F0;
+  --gray-500: #64748B;
+  --gray-700: #334155;
+  --gradient-1: linear-gradient(135deg, #0D9488, #3B82F6);
+  --gradient-2: linear-gradient(135deg, #F97066, #F59E0B);
+  --gradient-3: linear-gradient(135deg, #8B5CF6, #EC4899);
+  --gradient-hero: linear-gradient(135deg, #0F1B2D 0%, #1a3a5c 50%, #0D9488 100%);
+}
+body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); background: var(--white); overflow-x: hidden; line-height: 1.6; }
+
+/* ── TOP BAR ── */
+.top-bar {
+  background: var(--navy);
+  color: var(--white);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  position: relative;
+  z-index: 200;
+}
+.top-bar-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.top-bar-logo span { color: var(--teal-light); }
+.top-bar-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.top-bar-link {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+.top-bar-link:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+.top-bar-link i { margin-right: 6px; font-size: 13px; }
+.login-btn {
+  background: var(--gradient-1);
+  color: var(--white) !important;
+  padding: 8px 22px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(13,148,136,0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.login-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,148,136,0.4); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--gradient-hero);
+  color: var(--white);
+  padding: 70px 20px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(13,148,136,0.3) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(249,112,102,0.2) 0%, transparent 40%);
+  animation: float 20s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(1deg); }
+  66% { transform: translate(-20px, 20px) rotate(-1deg); }
+}
+.hero-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 100px;
+  padding: 8px 24px; font-size: 13px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; color: var(--teal-light);
+}
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
+.hero h1 span { color: var(--teal-light); }
+.hero p { font-size: 1.05rem; max-width: 560px; margin: 0 auto; opacity: 0.9; line-height: 1.7; }
+
+/* ── MAIN CONTENT ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.section { padding: 60px 20px; }
+
+/* ── CONTACT CARDS ── */
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 60px; }
+.contact-card {
+  background: var(--white); border-radius: 20px; padding: 36px 28px;
+  border: 2px solid var(--gray-200); text-align: center;
+  transition: all 0.3s ease; position: relative; overflow: hidden;
+}
+.contact-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; border-radius: 20px 20px 0 0; }
+.contact-card.c1::before { background: var(--gradient-1); }
+.contact-card.c2::before { background: var(--gradient-2); }
+.contact-card.c3::before { background: var(--gradient-3); }
+.contact-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(15,27,45,0.08); border-color: transparent; }
+.contact-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; color: var(--white); margin: 0 auto 18px;
+}
+.contact-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; color: var(--navy); }
+.contact-card p { font-size: 0.92rem; color: var(--gray-500); margin-bottom: 14px; line-height: 1.6; }
+.contact-detail {
+  font-size: 1rem; font-weight: 700; color: var(--navy);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  transition: color 0.2s;
+}
+.contact-detail:hover { color: var(--teal); }
+
+/* ── TICKET FORM ── */
+.ticket-section {
+  background: var(--off-white);
+  border-radius: 24px;
+  padding: 50px 40px;
+  margin-bottom: 60px;
+  border: 1px solid var(--gray-200);
+}
+.ticket-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800; color: var(--navy);
+  margin-bottom: 6px; text-align: center;
+}
+.ticket-section .subtitle {
+  font-size: 1rem; color: var(--gray-500);
+  text-align: center; margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto;
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-group { display: flex; flex-direction: column; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label {
+  font-size: 0.85rem; font-weight: 600; color: var(--navy);
+  margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+}
+.form-group label i { font-size: 13px; color: var(--teal); }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px 16px;
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--navy);
+  background: var(--white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--gray-500); opacity: 0.6; }
+.form-group textarea { resize: vertical; min-height: 140px; }
+.form-group select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 36px; border-radius: 100px;
+  font-size: 0.95rem; font-weight: 700; text-decoration: none;
+  transition: all 0.3s ease; cursor: pointer; border: none;
+  font-family: 'Inter', sans-serif;
+}
+.btn-primary { background: var(--gradient-2); color: var(--white); box-shadow: 0 6px 28px rgba(249,112,102,0.3); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(249,112,102,0.4); }
+.btn-teal { background: var(--gradient-1); color: var(--white); box-shadow: 0 6px 28px rgba(13,148,136,0.3); }
+.btn-teal:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(13,148,136,0.4); }
+.form-actions { grid-column: 1 / -1; text-align: center; margin-top: 10px; }
+
+/* ── SUCCESS MESSAGE ── */
+.success-msg {
+  display: none;
+  background: #ECFDF5;
+  border: 2px solid var(--green);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  margin-top: 20px;
+}
+.success-msg.show { display: block; animation: fadeIn 0.4s ease; }
+.success-msg i { font-size: 40px; color: var(--green); margin-bottom: 12px; display: block; }
+.success-msg h3 { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.success-msg p { font-size: 0.92rem; color: var(--gray-500); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── FAQ SECTION ── */
+.faq-section { margin-bottom: 60px; }
+.faq-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800; color: var(--navy);
+  text-align: center; margin-bottom: 36px;
+}
+.faq-item {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.faq-item:hover { border-color: var(--teal); }
+.faq-question {
+  padding: 20px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--navy);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+}
+.faq-question i { color: var(--teal); transition: transform 0.3s ease; font-size: 14px; flex-shrink: 0; }
+.faq-item.open .faq-question i { transform: rotate(180deg); }
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-item.open .faq-answer { max-height: 300px; }
+.faq-answer-inner { padding: 0 24px 20px; font-size: 0.92rem; color: var(--gray-500); line-height: 1.7; }
+
+/* ── CTA ── */
+.cta-section {
+  background: var(--gradient-hero); color: var(--white); padding: 60px 20px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(249,112,102,0.25) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(13,148,136,0.3) 0%, transparent 50%);
+}
+.cta-section .container { position: relative; z-index: 1; }
+.cta-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 14px; }
+.cta-section p { font-size: 1.1rem; opacity: 0.9; max-width: 520px; margin: 0 auto 26px; }
+.btn-outline { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.4); }
+.btn-outline:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+
+/* ── HOURS BADGE ── */
+.hours-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(13,148,136,0.1); border: 1px solid rgba(13,148,136,0.2);
+  border-radius: 100px; padding: 6px 18px; font-size: 0.82rem; font-weight: 600;
+  color: var(--teal); margin-top: 12px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .hero { padding: 50px 20px 40px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .ticket-section { padding: 30px 20px; }
+  .top-bar-link.hide-mobile { display: none; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .btn-outline { margin-left: 0; margin-top: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ TOP BAR ══════ -->
+<header class="top-bar">
+  <a class="top-bar-logo" href="index.html">The GCODE <span>Nonprofit Systems</span></a>
+  <div class="top-bar-links">
+    <a class="top-bar-link hide-mobile" href="features.html"><i class="fas fa-th-large"></i>Features</a>
+    <a class="top-bar-link hide-mobile" href="our-story.html"><i class="fas fa-book-open"></i>Our Story</a>
+    <a class="login-btn" href="https://app.thegcodesystems.com/login"><i class="fas fa-right-to-bracket"></i> Log In</a>
+  </div>
+</header>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Help & Support</div>
+    <h1>We're Here to <span>Help</span></h1>
+    <p>Whether you need technical support, have a question, or want to request a new feature — our team is ready to assist.</p>
+  </div>
+</section>
+
+<!-- ══════ CONTACT CARDS ══════ -->
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div class="contact-card c1">
+        <div class="contact-icon" style="background:var(--gradient-1);"><i class="fas fa-envelope"></i></div>
+        <h3>Email Support</h3>
+        <p>Send us an email and our team will respond within 24 hours for all plan types.</p>
+        <a class="contact-detail" href="mailto:support@thegcodesystems.com"><i class="fas fa-envelope"></i> support@thegcodesystems.com</a>
+      </div>
+
+      <div class="contact-card c2">
+        <div class="contact-icon" style="background:var(--gradient-2);"><i class="fas fa-phone"></i></div>
+        <h3>Phone Support</h3>
+        <p>Speak directly with a support specialist for urgent issues or guided assistance.</p>
+        <a class="contact-detail" href="tel:+13035149722"><i class="fas fa-phone"></i> (303) 514-9722</a>
+        <div class="hours-badge"><i class="fas fa-clock"></i> Mon–Fri, 9 AM – 5 PM MT</div>
+      </div>
+
+      <div class="contact-card c3">
+        <div class="contact-icon" style="background:var(--gradient-3);"><i class="fas fa-ticket"></i></div>
+        <h3>Submit a Ticket</h3>
+        <p>Use the form below to submit a support request, bug report, or feature suggestion.</p>
+        <a class="contact-detail" href="#ticket-form" style="color:var(--teal);"><i class="fas fa-arrow-down"></i> Go to Ticket Form</a>
+      </div>
+
+    </div>
+
+    <!-- ══════ TICKET FORM ══════ -->
+    <div class="ticket-section" id="ticket-form">
+      <h2>Submit a Support Ticket</h2>
+      <p class="subtitle">Fill out the form below and our support team will get back to you promptly.</p>
+
+      <form id="supportForm" action="https://formsubmit.co/support@thegcodesystems.com" method="POST">
+        <!-- FormSubmit config -->
+        <input type="hidden" name="_subject" value="New Support Ticket — G-CODE Systems">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="text" name="_honey" style="display:none">
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label><i class="fas fa-user"></i> Full Name</label>
+            <input type="text" name="name" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-envelope"></i> Email Address</label>
+            <input type="email" name="email" placeholder="you@organization.org" required>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-building"></i> Organization</label>
+            <input type="text" name="organization" placeholder="Your organization name">
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-phone"></i> Phone (Optional)</label>
+            <input type="tel" name="phone" placeholder="(555) 555-5555">
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-tag"></i> Ticket Type</label>
+            <select name="ticket_type" required>
+              <option value="" disabled selected>Select a category...</option>
+              <option value="Technical Support">Technical Support</option>
+              <option value="Bug Report">Bug Report</option>
+              <option value="Feature Request">Feature Request</option>
+              <option value="Billing / Account">Billing / Account</option>
+              <option value="Onboarding Help">Onboarding Help</option>
+              <option value="Data / Security">Data / Security</option>
+              <option value="General Question">General Question</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-exclamation-circle"></i> Priority</label>
+            <select name="priority" required>
+              <option value="" disabled selected>Select priority...</option>
+              <option value="Low">Low — General question or minor issue</option>
+              <option value="Medium">Medium — Affecting my workflow</option>
+              <option value="High">High — Major issue, need help soon</option>
+              <option value="Critical">Critical — System down or data at risk</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label><i class="fas fa-heading"></i> Subject</label>
+            <input type="text" name="subject" placeholder="Brief summary of your issue" required>
+          </div>
+          <div class="form-group full">
+            <label><i class="fas fa-align-left"></i> Description</label>
+            <textarea name="description" placeholder="Please describe your issue in detail. Include any steps to reproduce, error messages, or screenshots if possible." required></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit Ticket</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="success-msg" id="successMsg">
+        <i class="fas fa-circle-check"></i>
+        <h3>Ticket Submitted Successfully!</h3>
+        <p>We've received your support request. Our team will respond within 24 hours. Check your email for a confirmation.</p>
+      </div>
+    </div>
+
+    <!-- ══════ FAQ ══════ -->
+    <div class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <button class="faq-question">How quickly will I receive a response? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-inner">All support tickets receive a response within 24 hours during business days. Priority and Enterprise plan customers receive faster response times. Critical issues are addressed as quickly as possible regardless of plan type.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">What's included in the 14-day free trial? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-inner">The free trial includes full access to all platform features, onboarding assistance, training sessions, and support. You'll have everything you need to evaluate whether G-CODE is the right fit for your organization — no credit card required.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">How do I get help with onboarding? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Every new organization receives a guided onboarding experience including a dedicated onboarding specialist, data migration assistance, team training sessions, and configuration support. Simply contact us at support@thegcodesystems.com or call (303) 514-9722 to get started.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">Can I request a new feature? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Absolutely! We love hearing from our users. Use the support ticket form above and select "Feature Request" as the ticket type. Our product team reviews all feature requests and incorporates them into our development roadmap based on community demand.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">Is my data safe and compliant? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. The G-CODE Systems is built to meet HIPAA and FERPA compliance requirements. We use AES-256 encryption, per-organization encryption keys, role-based access controls, two-factor authentication, and complete audit trails. A Business Associate Agreement (BAA) is available for organizations handling protected health information.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">What are the support hours? <i class="fas fa-chevron-down"></i></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Our support team is available Monday through Friday, 9:00 AM to 5:00 PM Mountain Time. You can submit tickets anytime via the form above or by emailing support@thegcodesystems.com — we'll respond on the next business day for after-hours submissions. Enterprise customers may have extended support hours per their SLA.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CTA ══════ -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to Get Started?</h2>
+    <p>See how G-CODE can streamline your nonprofit's operations with a free 14-day trial.</p>
+    <a href="mailto:info@thegcodesystems.com?subject=14-Day Free Trial" class="btn btn-primary">Start 14-Day Free Trial</a>
+    <a href="GCODE_Features_Page.html" class="btn btn-outline" style="margin-left:14px;">Explore Features</a>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer style="background:var(--navy);color:var(--white);padding:44px 20px 30px;text-align:center;">
+  <div style="max-width:700px;margin:0 auto;">
+    <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;margin-bottom:6px;">The G-CODE Systems</div>
+    <p style="font-size:0.85rem;opacity:0.6;margin-bottom:16px;">All-in-one nonprofit management platform</p>
+    <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:16px;">
+      <a href="https://app.thegcodesystems.com/login" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.85rem;font-weight:500;" onmouseover="this.style.color='#14b8a6'" onmouseout="this.style.color='rgba(255,255,255,0.7)'"><i class="fas fa-right-to-bracket" style="margin-right:5px;"></i>Log In</a>
+      <a href="GCODE_Features_Page.html" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.85rem;font-weight:500;" onmouseover="this.style.color='#14b8a6'" onmouseout="this.style.color='rgba(255,255,255,0.7)'"><i class="fas fa-th-large" style="margin-right:5px;"></i>Features</a>
+      <a href="mailto:support@thegcodesystems.com" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.85rem;font-weight:500;" onmouseover="this.style.color='#14b8a6'" onmouseout="this.style.color='rgba(255,255,255,0.7)'"><i class="fas fa-envelope" style="margin-right:5px;"></i>Contact Us</a>
+    </div>
+    <p style="font-size:0.8rem;opacity:0.5;">support@thegcodesystems.com &bull; (303) 514-9722 &bull; thegcodesystems.com</p>
+    <p style="font-size:0.75rem;opacity:0.4;margin-top:12px;">&copy; 2026 The G-CODE Systems. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ══════ SCRIPTS ══════ -->
+<script>
+// FAQ accordion
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    // Toggle clicked
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+</script>
+
+</body>
+</html>

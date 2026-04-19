@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The GCODE Nonprofit Systems — Features</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --navy: #0F1B2D;
+  --navy-light: #1a2d47;
+  --teal: #0D9488;
+  --teal-light: #14b8a6;
+  --teal-dark: #0a7c72;
+  --coral: #F97066;
+  --amber: #F59E0B;
+  --purple: #8B5CF6;
+  --blue: #3B82F6;
+  --pink: #EC4899;
+  --green: #10B981;
+  --sky: #06B6D4;
+  --white: #FFFFFF;
+  --off-white: #F8FAFC;
+  --gray-100: #F1F5F9;
+  --gray-200: #E2E8F0;
+  --gray-500: #64748B;
+  --gray-700: #334155;
+  --gradient-1: linear-gradient(135deg, #0D9488, #3B82F6);
+  --gradient-2: linear-gradient(135deg, #F97066, #F59E0B);
+  --gradient-3: linear-gradient(135deg, #8B5CF6, #EC4899);
+  --gradient-hero: linear-gradient(135deg, #0F1B2D 0%, #1a3a5c 50%, #0D9488 100%);
+}
+body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); background: var(--white); overflow-x: hidden; line-height: 1.6; }
+
+/* ── HERO (compact) ── */
+.hero {
+  background: var(--gradient-hero);
+  color: var(--white);
+  padding: 70px 20px 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle at 30% 50%, rgba(13,148,136,0.3) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(249,112,102,0.2) 0%, transparent 40%);
+  animation: float 20s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(1deg); }
+  66% { transform: translate(-20px, 20px) rotate(-1deg); }
+}
+.hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 100px;
+  padding: 8px 24px; font-size: 13px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; color: var(--teal-light);
+}
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.1; margin-bottom: 16px; }
+.hero h1 span { color: var(--teal-light); }
+.hero p { font-size: 1.1rem; max-width: 620px; margin: 0 auto 30px; opacity: 0.9; line-height: 1.6; }
+.hero-stats { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+.hero-stat { text-align: center; }
+.hero-stat-number { font-size: 2.2rem; font-weight: 900; background: var(--gradient-2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-stat-label { font-size: 0.8rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
+
+/* ── TAB NAVIGATION ── */
+.tab-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 2px solid var(--gray-200);
+  box-shadow: 0 2px 12px rgba(15,27,45,0.06);
+}
+.tab-nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.tab-nav-inner::-webkit-scrollbar { display: none; }
+.tab-nav { position: relative; }
+.tab-nav::after {
+  content: '\f054'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+  position: absolute; right: 0; top: 0; bottom: 0;
+  width: 44px; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(to left, var(--white) 60%, transparent);
+  color: var(--gray-500); font-size: 12px; pointer-events: none;
+  opacity: 1; transition: opacity 0.3s;
+}
+.tab-nav.scrolled-end::after { opacity: 0; }
+.tab-btn {
+  flex-shrink: 0;
+  padding: 16px 22px;
+  font-size: 0.85rem; font-weight: 600;
+  color: var(--gray-500);
+  background: none; border: none; border-bottom: 3px solid transparent;
+  cursor: pointer; transition: all 0.25s ease;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+}
+.tab-btn:hover { color: var(--navy); background: var(--off-white); }
+.tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); }
+.tab-btn i { margin-right: 6px; font-size: 14px; }
+
+/* ── TAB PANELS ── */
+.tab-panel { display: none; animation: fadeIn 0.35s ease; }
+.tab-panel.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── SHARED SECTION ── */
+.section { padding: 60px 20px; }
+.section-alt { background: var(--off-white); }
+.container { max-width: 1200px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 50px; }
+.section-tag {
+  display: inline-block; padding: 6px 18px; border-radius: 100px;
+  font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; margin-bottom: 14px;
+}
+.section-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; color: var(--navy); margin-bottom: 12px; }
+.section-header p { font-size: 1.05rem; color: var(--gray-500); max-width: 600px; margin: 0 auto; }
+
+/* ── FEATURE CARDS ── */
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+.feature-card {
+  background: var(--white); border-radius: 20px; padding: 32px;
+  border: 1px solid var(--gray-200); transition: all 0.3s ease;
+  position: relative; overflow: hidden;
+}
+.feature-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(15,27,45,0.08); border-color: transparent; }
+.feature-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; border-radius: 20px 20px 0 0; }
+.feature-card.teal::before { background: var(--gradient-1); }
+.feature-card.coral::before { background: var(--gradient-2); }
+.feature-card.purple::before { background: var(--gradient-3); }
+.feature-card.blue::before { background: linear-gradient(135deg, var(--blue), var(--sky)); }
+.feature-card.green::before { background: linear-gradient(135deg, var(--green), var(--teal)); }
+.feature-card.amber::before { background: linear-gradient(135deg, var(--amber), var(--coral)); }
+.card-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; color: var(--white); margin-bottom: 18px;
+}
+.card-icon.teal { background: var(--gradient-1); }
+.card-icon.coral { background: var(--gradient-2); }
+.card-icon.purple { background: var(--gradient-3); }
+.card-icon.blue { background: linear-gradient(135deg, var(--blue), var(--sky)); }
+.card-icon.green { background: linear-gradient(135deg, var(--green), var(--teal)); }
+.card-icon.amber { background: linear-gradient(135deg, var(--amber), var(--coral)); }
+.feature-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--navy); }
+.feature-card p { font-size: 0.92rem; color: var(--gray-500); margin-bottom: 14px; line-height: 1.6; }
+.feature-list { list-style: none; padding: 0; }
+.feature-list li { padding: 5px 0; font-size: 0.88rem; color: var(--gray-700); display: flex; align-items: flex-start; gap: 10px; }
+.feature-list li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 11px; color: var(--teal); margin-top: 4px; flex-shrink: 0; }
+
+/* ── MEGA FEATURE ── */
+.mega-feature { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; padding: 30px 0; }
+.mega-feature.reverse { direction: rtl; }
+.mega-feature.reverse > * { direction: ltr; }
+.mega-text h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 14px; }
+.mega-text p { font-size: 1rem; color: var(--gray-500); margin-bottom: 18px; line-height: 1.7; }
+.mega-visual {
+  background: var(--gradient-hero); border-radius: 20px; padding: 36px;
+  color: var(--white); position: relative; overflow: hidden; min-height: 280px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.mega-visual::before {
+  content: ''; position: absolute; top: -30%; right: -30%;
+  width: 60%; height: 60%;
+  background: radial-gradient(circle, rgba(13,148,136,0.4) 0%, transparent 70%); border-radius: 50%;
+}
+.mega-visual-content { position: relative; z-index: 1; }
+.mega-visual .stat-row { display: flex; gap: 16px; margin-bottom: 14px; }
+.mega-visual .stat-box {
+  background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;
+  padding: 14px 16px; flex: 1; text-align: center;
+}
+.mega-visual .stat-box .num { font-size: 1.6rem; font-weight: 800; color: var(--teal-light); }
+.mega-visual .stat-box .label { font-size: 0.7rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; }
+
+/* ── SMALL CARDS ── */
+.mobile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; }
+.mobile-card {
+  background: var(--white); border-radius: 14px; padding: 24px;
+  border: 1px solid var(--gray-200); display: flex; align-items: flex-start; gap: 14px;
+  transition: all 0.3s ease;
+}
+.mobile-card:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(15,27,45,0.06); }
+.mobile-card-icon {
+  width: 42px; height: 42px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; color: var(--white); flex-shrink: 0;
+}
+.mobile-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 3px; }
+.mobile-card p { font-size: 0.83rem; color: var(--gray-500); }
+
+/* ── COMPLIANCE ── */
+.compliance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+.compliance-card {
+  background: var(--white); border-radius: 20px; padding: 30px; text-align: center;
+  border: 2px solid var(--gray-200); transition: all 0.3s ease;
+}
+.compliance-card:hover { border-color: var(--teal); transform: translateY(-4px); box-shadow: 0 14px 44px rgba(13,148,136,0.1); }
+.compliance-icon {
+  width: 66px; height: 66px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; margin: 0 auto 14px; color: var(--white);
+}
+.compliance-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+.compliance-card p { font-size: 0.88rem; color: var(--gray-500); }
+
+/* ── PRICING ── */
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; max-width: 1000px; margin: 0 auto; }
+.pricing-card {
+  background: var(--white); border-radius: 22px; padding: 36px 28px;
+  border: 2px solid var(--gray-200); text-align: center;
+  position: relative; transition: all 0.3s ease;
+}
+.pricing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(15,27,45,0.08); }
+.pricing-card.featured { border-color: var(--teal); box-shadow: 0 16px 48px rgba(13,148,136,0.12); transform: scale(1.03); }
+.pricing-card.featured:hover { transform: scale(1.03) translateY(-4px); }
+.pricing-popular {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--gradient-2); color: var(--white);
+  padding: 5px 22px; border-radius: 100px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+}
+.pricing-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+.pricing-price { font-size: 2.8rem; font-weight: 900; color: var(--navy); margin: 14px 0 4px; }
+.pricing-price span { font-size: 1rem; font-weight: 500; color: var(--gray-500); }
+.pricing-users { font-size: 0.88rem; color: var(--gray-500); margin-bottom: 20px; }
+.pricing-divider { height: 1px; background: var(--gray-200); margin: 0 -28px 20px; }
+
+/* ── CTA ── */
+.cta-section {
+  background: var(--gradient-hero); color: var(--white); padding: 60px 20px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(249,112,102,0.25) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(13,148,136,0.3) 0%, transparent 50%);
+}
+.cta-section .container { position: relative; z-index: 1; }
+.cta-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 14px; }
+.cta-section p { font-size: 1.1rem; opacity: 0.9; max-width: 520px; margin: 0 auto 26px; }
+.btn {
+  display: inline-block; padding: 14px 36px; border-radius: 100px;
+  font-size: 0.95rem; font-weight: 700; text-decoration: none;
+  transition: all 0.3s ease; cursor: pointer; border: none;
+}
+.btn-primary { background: var(--gradient-2); color: var(--white); box-shadow: 0 6px 28px rgba(249,112,102,0.3); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(249,112,102,0.4); }
+.btn-outline { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.4); margin-left: 14px; }
+.btn-outline:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+.btn-teal { background: var(--gradient-1); color: var(--white); }
+
+/* ── TOP NAV BAR ── */
+.top-bar {
+  background: var(--navy);
+  color: var(--white);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  position: relative;
+  z-index: 200;
+}
+.top-bar-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.top-bar-logo span { color: var(--teal-light); }
+.top-bar-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.top-bar-link {
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: 'Inter', sans-serif;
+}
+.top-bar-link:hover { color: var(--white); background: rgba(255,255,255,0.1); }
+.top-bar-link i { margin-right: 6px; font-size: 13px; }
+.login-btn {
+  background: var(--gradient-1);
+  color: var(--white) !important;
+  padding: 8px 22px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(13,148,136,0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.login-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,148,136,0.4); }
+
+/* ── TERMS MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15,27,45,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--white);
+  border-radius: 20px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 40px;
+  box-shadow: 0 24px 64px rgba(15,27,45,0.2);
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 16px; right: 20px;
+  background: var(--gray-100);
+  border: none;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: var(--gray-500);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease;
+}
+.modal-close:hover { background: var(--gray-200); color: var(--navy); }
+.modal-box h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 8px; }
+.modal-box .modal-updated { font-size: 0.85rem; color: var(--gray-500); margin-bottom: 24px; }
+.modal-box h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-top: 24px; margin-bottom: 8px; }
+.modal-box p, .modal-box li { font-size: 0.92rem; color: var(--gray-700); line-height: 1.7; }
+.modal-box ul { padding-left: 20px; margin: 8px 0; }
+.modal-box li { margin-bottom: 4px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .hero { padding: 50px 20px 40px; }
+  .hero-stats { gap: 24px; }
+  .mega-feature, .mega-feature.reverse { grid-template-columns: 1fr; gap: 24px; direction: ltr; }
+  .section { padding: 40px 16px; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .tab-btn { padding: 12px 16px; font-size: 0.8rem; }
+  .btn-outline { margin-left: 0; margin-top: 10px; }
+  .top-bar { padding: 0 12px; }
+  .top-bar-logo { font-size: 1rem; }
+  .top-bar-link.hide-mobile { display: none; }
+  .modal-box { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ TOP BAR ══════ -->
+<header class="top-bar">
+  <a class="top-bar-logo" href="index.html">The GCODE <span>Nonprofit Systems</span></a>
+  <div class="top-bar-links">
+    <a class="top-bar-link hide-mobile" href="our-story.html"><i class="fas fa-book-open"></i>Our Story</a>
+    <a class="top-bar-link hide-mobile" href="support.html"><i class="fas fa-headset"></i>Support</a>
+    <button class="top-bar-link hide-mobile" onclick="document.getElementById('terms-modal').classList.add('open');"><i class="fas fa-file-contract"></i>Terms</button>
+    <a class="login-btn" href="https://app.thegcodesystems.com/login"><i class="fas fa-right-to-bracket"></i> Log In</a>
+  </div>
+</header>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">All-In-One Nonprofit Platform</div>
+    <h1>Everything Your Nonprofit Needs. <span>One Platform.</span></h1>
+    <p>Case management, housing, HR, fund accounting, compliance, and 35+ integrated modules — built for nonprofits that refuse to settle for disconnected tools.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-number">35+</div><div class="hero-stat-label">Integrated Modules</div></div>
+      <div class="hero-stat"><div class="hero-stat-number">20+</div><div class="hero-stat-label">Built-in Reports</div></div>
+      <div class="hero-stat"><div class="hero-stat-number">100%</div><div class="hero-stat-label">HIPAA & FERPA Ready</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TAB NAVIGATION ══════ -->
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" data-tab="overview"><i class="fas fa-th-large"></i>Overview</button>
+    <button class="tab-btn" data-tab="clients"><i class="fas fa-users"></i>Clients & Cases</button>
+    <button class="tab-btn" data-tab="housing"><i class="fas fa-home"></i>Housing</button>
+    <button class="tab-btn" data-tab="hr"><i class="fas fa-id-card-clip"></i>HR & Finance</button>
+    <button class="tab-btn" data-tab="programs"><i class="fas fa-layer-group"></i>Programs</button>
+    <button class="tab-btn" data-tab="reporting"><i class="fas fa-chart-bar"></i>Reporting</button>
+    <button class="tab-btn" data-tab="engage"><i class="fas fa-comments"></i>Engage</button>
+    <button class="tab-btn" data-tab="security"><i class="fas fa-shield-halved"></i>Security</button>
+    <button class="tab-btn" data-tab="mobile"><i class="fas fa-mobile-screen-button"></i>Mobile & Portal</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB: OVERVIEW -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel active" id="tab-overview">
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" style="background:#E6F5F3;color:var(--teal);">Platform Overview</div>
+        <h2>Powerful Modules, Seamlessly Connected</h2>
+        <p>Every module works together so your data flows freely — no more copy-pasting between five different tools.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card teal">
+          <div class="card-icon teal"><i class="fas fa-users"></i></div>
+          <h3>Client & Case Management</h3>
+          <p>Profiles, intake, case notes, treatment plans, cosign workflows, and AI-powered documentation.</p>
+        </div>
+        <div class="feature-card purple">
+          <div class="card-icon purple"><i class="fas fa-home"></i></div>
+          <h3>Housing Management</h3>
+          <p>Properties, units, placements, rent ledgers, financial assistance, work orders, and occupancy dashboards.</p>
+        </div>
+        <div class="feature-card coral">
+          <div class="card-icon coral"><i class="fas fa-id-card-clip"></i></div>
+          <h3>HR & Payroll</h3>
+          <p>Employee management, payroll, timesheets, leave, benefits, certifications, scheduling, and onboarding.</p>
+        </div>
+        <div class="feature-card amber">
+          <div class="card-icon amber"><i class="fas fa-chart-pie"></i></div>
+          <h3>Fund Accounting</h3>
+          <p>Chart of accounts, budgets, AP/AR, Plaid bank feeds, grant tracking, Form 990 prep, and financial statements.</p>
+        </div>
+        <div class="feature-card blue">
+          <div class="card-icon blue"><i class="fas fa-layer-group"></i></div>
+          <h3>Programs & Services</h3>
+          <p>Multi-program enrollment, service delivery, trip reports, referrals, CRM pipeline, and partner directory.</p>
+        </div>
+        <div class="feature-card green">
+          <div class="card-icon green"><i class="fas fa-shield-halved"></i></div>
+          <h3>Compliance & Security</h3>
+          <p>HIPAA & FERPA compliant with AES-256 encryption, audit trails, 2FA, and 5-level role-based access.</p>
+        </div>
+      </div>
+
+      <!-- Quick stats banner -->
+      <div style="margin-top:50px;background:var(--gradient-hero);border-radius:20px;padding:40px;color:var(--white);text-align:center;position:relative;overflow:hidden;">
+        <div style="position:relative;z-index:1;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:24px;">Built for Nonprofits That Do Real Work</h3>
+          <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;">
+            <div><div style="font-size:2.4rem;font-weight:900;background:var(--gradient-2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">6</div><div style="font-size:0.8rem;opacity:0.7;text-transform:uppercase;letter-spacing:1px;">Core Modules</div></div>
+            <div><div style="font-size:2.4rem;font-weight:900;background:var(--gradient-2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">20+</div><div style="font-size:0.8rem;opacity:0.7;text-transform:uppercase;letter-spacing:1px;">Report Types</div></div>
+            <div><div style="font-size:2.4rem;font-weight:900;background:var(--gradient-2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">5</div><div style="font-size:0.8rem;opacity:0.7;text-transform:uppercase;letter-spacing:1px;">Access Levels</div></div>
+            <div><div style="font-size:2.4rem;font-weight:900;background:var(--gradient-2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">3</div><div style="font-size:0.8rem;opacity:0.7;text-transform:uppercase;letter-spacing:1px;">Platform Apps</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB: CLIENTS & CASES -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-clients">
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" style="background:#E6F5F3;color:var(--teal);">Core</div>
+        <h2>Client & Case Management</h2>
+        <p>Complete client lifecycle management with powerful case documentation tools.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card teal">
+          <div class="card-icon teal"><i class="fas fa-users"></i></div>
+          <h3>Client Management</h3>
+          <p>Complete client profiles with demographics, households, income tracking, and communications.</p>
+          <ul class="feature-list">
+            <li>Client intake and enrollment workflows</li>
+            <li>Household and demographic tracking</li>
+            <li>Income verification and documentation</li>
+            <li>Incident reporting and communications</li>
+            <li>Client portal with self-service access</li>
+          </ul>
+        </div>
+        <div class="feature-card coral">
+          <div class="card-icon coral"><i class="fas fa-clipboard-list"></i></div>
+          <h3>Case Management</h3>
+          <p>Document everything from case notes to treatment plans with built-in approval workflows.</p>
+          <ul class="feature-list">
+            <li>Case note creation, editing, and voiding</li>
+            <li>Cosign workflows and approval queues</li>
+            <li>Treatment plans tied to enrollments</li>
+            <li>AI-powered visit documentation helper</li>
+            <li>Assessments and goal tracking</li>
+          </ul>
+        </div>
+        <div class="feature-card amber">
+          <div class="card-icon amber"><i class="fas fa-handshake"></i></div>
+          <h3>CRM & Referrals</h3>
+          <p>Manage your prospect pipeline, partner organizations, and referral networks in one system.</p>
+          <ul class="feature-list">
+            <li>Prospect tracking and pipeline</li>
+            <li>Inquiry management</li>
+            <li>Internal and external referrals</li>
+            <li>Referral status tracking and history</li>
+            <li>Partner organization directory</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Additional Client Features -->
+      <div style="margin-top:50px;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--navy);text-align:center;margin-bottom:30px;">More Client Tools</h3>
+        <div class="mobile-grid">
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-file-lines"></i></div><div><h4>Document Management</h4><p>Upload, organize, and share files and documents tied to client records.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-clipboard-question"></i></div><div><h4>Form Templates</h4><p>Reusable form templates for intakes, assessments, surveys, and more.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-list-check"></i></div><div><h4>Follow-Up Management</h4><p>Task tracking and follow-up reminders so nothing falls through the cracks.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-user-graduate"></i></div><div><h4>Education & Student Profiles</h4><p>FERPA-specific student profiles with education records, grades, and disclosure tracking.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-inbox"></i></div><div><h4>Service Inquiries</h4><p>Capture and manage incoming inquiries from potential clients and community members.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-file-signature"></i></div><div><h4>E-Signatures</h4><p>Digital acknowledgments for handbooks, policies, and consent forms.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB: HOUSING -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-housing">
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" style="background:#EDE9FE;color:var(--purple);">Housing</div>
+        <h2>Housing Management</h2>
+        <p>Track every property, unit, placement, and dollar of rent or financial assistance in real time.</p>
+      </div>
+      <div class="mega-feature">
+        <div class="mega-text">
+          <h3>Purpose-Built for Residential Programs</h3>
+          <p>Unlike generic nonprofit tools, our Housing Management module was built for transitional housing, shelters, and supportive housing organizations.</p>
+          <ul class="feature-list">
+            <li>Property and unit management</li>
+            <li>Resident placement tracking</li>
+            <li>Housing assistance tracking</li>
+            <li>Deposits and rent ledger</li>
+            <li>Work orders and grievances</li>
+            <li>Occupancy and availability dashboards</li>
+            <li>Financial assistance disbursement</li>
+            <li>Move-in/move-out date management</li>
+          </ul>
+        </div>
+        <div class="mega-visual">
+          <div class="mega-visual-content">
+            <div style="font-size:44px;margin-bottom:18px;"><i class="fas fa-home"></i></div>
+            <div class="stat-row">
+              <div class="stat-box"><div class="num">Units</div><div class="label">Tracking</div></div>
+              <div class="stat-box"><div class="num">Rent</div><div class="label">Ledgers</div></div>
+            </div>
+            <div class="stat-row">
+              <div class="stat-box"><div class="num">Work</div><div class="label">Orders</div></div>
+              <div class="stat-box"><div class="num">Live</div><div class="label">Occupancy</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB: HR & FINANCE -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-hr">
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" style="background:#FEF3C7;color:var(--amber);">Operations</div>
+        <h2>HR, Payroll & Fund Accounting</h2>
+        <p>Stop paying for separate HR and accounting software. It's all here, purpose-built for nonprofits.</p>
+      </div>
+
+      <div class="mega-feature">
+        <div class="mega-text">
+          <h3>HR & Payroll That Works for You</h3>
+          <p>Manage your entire team lifecycle — from onboarding to payroll to benefits — without a separate HRIS.</p>
+          <ul class="feature-list">
+            <li>Employee directory and management</li>
+            <li>Payroll processing and history</li>
+            <li>Leave and time-off management with policies</li>
+            <li>Timesheet approval workflows</li>
+            <li>Certifications and training tracking</li>
+            <li>Benefits enrollment and management</li>
+            <li>Scheduling and availability</li>
+            <li>Position and department management</li>
+            <li>Onboarding workflows and templates</li>
+          </ul>
+        </div>
+        <div class="mega-visual">
+          <div class="mega-visual-content">
+            <div style="font-size:44px;margin-bottom:18px;"><i class="fas fa-id-card-clip"></i></div>
+            <div class="stat-row">
+              <div class="stat-box"><div class="num">100%</div><div class="label">Payroll</div></div>
+              <div class="stat-box"><div class="num">PTO</div><div class="label">Tracking</div></div>
+            </div>
+            <div class="stat-row">
+              <div class="stat-box"><div class="num">Auto</div><div class="label">Timesheets</div></div>
+              <div class="stat-box"><div class="num">Cert</div><div class="label">Compliance</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mega-feature reverse" style="margin-top:50px;">
+        <div class="mega-text">
+          <h3>True Nonprofit Fund Accounting</h3>
+          <p>Chart of accounts, journal entries, fund tracking, and financial statements built for the way nonprofits actually work.</p>
+          <ul class="feature-list">
+            <li>Chart of accounts and journal entries</li>
+            <li>Budget creation and amendments</li>
+            <li>Invoicing (regular and recurring)</li>
+            <li>Accounts payable and receivable aging</li>
+            <li>Bank feeds via Plaid integration</li>
+            <li>Auto-coding rules for transactions</li>
+            <li>Corporate cards and expense reimbursements</li>
+            <li>Financial statements and position reporting</li>
+            <li>Form 990 preparation support</li>
+          </ul>
+        </div>
+        <div class="mega-visual">
+          <div class="mega-visual-content">
+            <div style="font-size:44px;margin-bottom:18px;"><i class="fas fa-chart-pie"></i></div>
+            <div class="stat-row">
+              <div class="stat-box"><div class="num">Fund</div><div class="label">Accounting</div></div>
+              <div class="stat-box"><div class="num">990</div><div class="label">Ready</div></div>
+            </div>
+            <div class="stat-row">
+              <div class="stat-box"><div class="num">AP/AR</div><div class="label">Aging</div></div>
+              <div class="stat-box"><div class="num">Plaid</div><div class="label">Bank Feeds</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grants sub-section -->
+      <div style="margin-top:50px;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--navy);text-align:center;margin-bottom:30px;">Grants & Funding Management</h3>
+        <div class="mobile-grid">
+          <div class="mobile-card">
+            <div class="mobile-card-icon" style="background:var(--gradient-3);"><i class="fas fa-money-check-dollar"></i></div>
+            <div><h4>Funding Sources</h4><p>Track all funding sources and allocations across your organization.</p></div>
+          </div>
+          <div class="mobile-card">
+            <div class="mobile-card-icon" style="background:var(--gradient-3);"><i class="fas fa-file-invoice-dollar"></i></div>
+            <div><h4>Grant Invoicing</h4><p>Generate grant invoices automatically from tracked expenses and deliverables.</p></div>
+          </div>
+          <div class="mobile-card">
+            <div class="mobile-card-icon" style="background:var(--gradient-3);"><i class="fas fa-chart-line"></i></div>
+            <div><h4>Disbursement Tracking</h4><p>Monitor grant disbursements and spending against budget in real time.</p></div>
+          </div>
+          <div class="mobile-card">
+            <div class="mobile-card-icon" style="background:var(--gradient-3);"><i class="fas fa-user-tie"></i></div>
+            <div><h4>FTE Funding Reports</h4><p>Track staff time allocation across grants with detailed FTE reports.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB: PROGRAMS -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-programs">
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" style="background:#DBEAFE;color:var(--blue);">Programs</div>
+        <h2>Programs, Services & Enrollment</h2>
+        <p>Multi-program enrollment with complete lifecycle management from intake to graduation.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card blue">
+          <div class="card-icon blue"><i class="fas fa-layer-group"></i></div>
+          <h3>Programs & Enrollment</h3>
+          <p>Multi-program enrollment with complete lifecycle management.</p>
+          <ul class="feature-list">
+            <li>Multi-program enrollment per client</li>
+            <li>Enrollment status workflows</li>
+            <li>Program schedules and budgets</li>
+            <li>Participant and staff assignments</li>
+            <li>Assessments and goals tied to enrollments</li>
+          </ul>
+        </div>
+        <div class="feature-card green">
+          <div class="card-icon green"><i class="fas fa-hands-helping"></i></div>
+          <h3>Services & Delivery</h3>
+          <p>Track every service delivered, manage service types, and document outcomes.</p>
+          <ul class="feature-list">
+            <li>Service delivery records and tracking</li>
+            <li>Service types and request management</li>
+            <li>Bulk service operations</li>
+            <li>Trip reports with expense tracking</li>
+            <li>Service request workflows</li>
+          </ul>
+        </div>
+        <div class="feature-card amber">
+          <div class="card-icon amber"><i class="fas fa-handshake"></i></div>
+          <h3>Referral Management</h3>
+          <p>Complete referral lifecycle from creation to outcome tracking.</p>
+          <ul class="feature-list">
+            <li>Internal and external referral creation</li>
+            <li>Referral status tracking and history</li>
+            <li>Referral communications</li>
+            <li>Documentation and outcome tracking</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Grant & Fund Distribution -->
+      <div style="margin-top:50px;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--navy);text-align:center;margin-bottom:30px;">Grant & Fund Distribution</h3>
+        <div class="feature-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+          <div class="feature-card teal">
+            <div class="card-icon teal"><i class="fas fa-hand-holding-dollar"></i></div>
+            <h3>Grant & Fund Distribution</h3>
+            <p>Track, manage, and distribute grants and funding to programs and partner organizations.</p>
+            <ul class="feature-list">
+              <li>Grant tracking and fund allocation</li>
+              <li>Distribution to partner organizations</li>
+              <li>Budget tracking per grant or fund</li>
+              <li>Reporting for funder compliance</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB: REPORTING -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-reporting">
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" style="background:#DBEAFE;color:var(--blue);">Analytics</div>
+        <h2>20+ Built-In Reports</h2>
+        <p>From audit trails to Form 990 preparation — the reports your funders and board need, ready to go.</p>
+      </div>
+      <div class="mobile-grid">
+        <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-magnifying-glass-chart"></i></div><div><h4>Audit Trail</h4><p>Complete activity tracking across your entire platform.</p></div></div>
+        <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-users-rectangle"></i></div><div><h4>Client Demographics</h4><p>Demographic breakdowns for grant compliance and reporting.</p></div></div>
+        <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-list-check"></i></div><div><h4>Client Roster</h4><p>Complete client roster with enrollment status and program assignments.</p></div></div>
+        <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-receipt"></i></div><div><h4>Financial Statements</h4><p>Balance sheets, income statements, and position reports.</p></div></div>
+        <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-landmark"></i></div><div><h4>Form 990 Prep</h4><p>Data organized and ready for annual tax filing.</p></div></div>
+        <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-chart-bar"></i></div><div><h4>Program Profitability</h4><p>See which programs are sustainable and where to invest.</p></div></div>
+        <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-sliders"></i></div><div><h4>Custom Report Builder</h4><p>Build exactly the report you need with drag-and-drop fields.</p></div></div>
+        <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-clock-rotate-left"></i></div><div><h4>Timesheet Summary</h4><p>Staff hours, overtime, and PTO at a glance.</p></div></div>
+        <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-building-columns"></i></div><div><h4>General Ledger</h4><p>Complete GL detail and summary with fund filtering.</p></div></div>
+        <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-scale-balanced"></i></div><div><h4>Fund Balances</h4><p>Restricted and unrestricted fund balance tracking.</p></div></div>
+        <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-triangle-exclamation"></i></div><div><h4>Incident Reports</h4><p>Track and analyze incidents across programs.</p></div></div>
+        <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-sitemap"></i></div><div><h4>Cross-Organization</h4><p>Reports spanning multiple sub-organizations.</p></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB: ENGAGE -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-engage">
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" style="background:#FCE7F3;color:var(--pink);">Engage</div>
+        <h2>Communication, Training & More</h2>
+        <p>Keep your team connected and your staff trained — all inside the same platform.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card purple">
+          <div class="card-icon purple"><i class="fas fa-comments"></i></div>
+          <h3>Team Communication</h3>
+          <p>Built-in messaging, announcements, and community boards keep everyone aligned.</p>
+          <ul class="feature-list">
+            <li>Team and client messaging</li>
+            <li>Organization-wide announcements</li>
+            <li>Community discussion boards</li>
+            <li>Posts, comments, and threads</li>
+          </ul>
+        </div>
+        <div class="feature-card blue">
+          <div class="card-icon blue"><i class="fas fa-graduation-cap"></i></div>
+          <h3>Training & Handbooks</h3>
+          <p>Create training modules with quizzes, manage handbooks, and track certifications.</p>
+          <ul class="feature-list">
+            <li>Training modules and courses with quizzes</li>
+            <li>Handbook management with versioning</li>
+            <li>Certification tracking and compliance</li>
+            <li>Employee onboarding paths</li>
+          </ul>
+        </div>
+        <div class="feature-card green">
+          <div class="card-icon green"><i class="fas fa-calendar-days"></i></div>
+          <h3>Calendar & Scheduling</h3>
+          <p>Event management, staff scheduling, booking systems, and automated reminders.</p>
+          <ul class="feature-list">
+            <li>Calendar views and event management</li>
+            <li>Event registration and QR code check-in</li>
+            <li>Staff scheduling and booking system</li>
+            <li>Automated booking reminders</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Video Conferencing, Telehealth & Appointments -->
+      <div style="margin-top:50px;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--navy);text-align:center;margin-bottom:30px;">Video Conferencing, Telehealth & Appointments</h3>
+        <div class="feature-grid">
+          <div class="feature-card teal">
+            <div class="card-icon teal"><i class="fas fa-video"></i></div>
+            <h3>Video Conferencing</h3>
+            <p>Built-in video conferencing for virtual client meetings, team check-ins, and remote case consultations.</p>
+            <ul class="feature-list">
+              <li>One-on-one and group video calls</li>
+              <li>Integrated with client and case records</li>
+              <li>Screen sharing and virtual meetings</li>
+              <li>No separate video tool needed</li>
+            </ul>
+          </div>
+          <div class="feature-card green">
+            <div class="card-icon green"><i class="fas fa-laptop-medical"></i></div>
+            <h3>Telehealth</h3>
+            <p>HIPAA-compliant virtual health sessions for remote client care, counseling, and clinical consultations.</p>
+            <ul class="feature-list">
+              <li>Secure video sessions for health services</li>
+              <li>HIPAA-compliant communication</li>
+              <li>Integrated with client health records</li>
+              <li>Session notes and follow-up scheduling</li>
+            </ul>
+          </div>
+          <div class="feature-card coral">
+            <div class="card-icon coral"><i class="fas fa-calendar-check"></i></div>
+            <h3>Appointment Booking</h3>
+            <p>Let clients and staff book appointments with automated reminders and Stripe payment integration.</p>
+            <ul class="feature-list">
+              <li>Online appointment scheduling</li>
+              <li>Automated email and push reminders</li>
+              <li>Stripe integration for paid appointments</li>
+              <li>Booking availability management</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Extras -->
+      <div style="margin-top:50px;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--navy);text-align:center;margin-bottom:30px;">And So Much More</h3>
+        <div class="mobile-grid">
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-chess-board"></i></div><div><h4>Board Management</h4><p>Board notes, dashboards, and meeting documentation.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-robot"></i></div><div><h4>AI Assistant</h4><p>AI-powered visit documentation helper for faster case notes.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-trophy"></i></div><div><h4>Gamification</h4><p>Badges, achievements, leaderboards, and points to boost engagement.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-video"></i></div><div><h4>Video Conferencing</h4><p>Built-in video calls for virtual meetings, client sessions, and team check-ins.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-laptop-medical"></i></div><div><h4>Telehealth</h4><p>HIPAA-compliant virtual health sessions for remote care and counseling.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-calendar-check"></i></div><div><h4>Appointment Booking</h4><p>Online scheduling with reminders and Stripe payment integration.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-hand-holding-dollar"></i></div><div><h4>Grant & Fund Distribution</h4><p>Track and distribute grants and funds to partner organizations and programs.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-map-location-dot"></i></div><div><h4>Geo-Fencing & Mapping</h4><p>GPS-based geofencing, staff location map view, and location enforcement.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-puzzle-piece"></i></div><div><h4>Integrations</h4><p>Plaid bank feeds, Stripe payments, QR codes, and CSV/Excel/PDF exports.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-building"></i></div><div><h4>Multi-Site Management</h4><p>Manage multiple locations, cross-site staff access, and feature flags.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-file-export"></i></div><div><h4>Export Engine</h4><p>Export anything to CSV, Excel, or PDF with one click.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-qrcode"></i></div><div><h4>QR Code Check-In</h4><p>QR-based event and program check-in for fast attendance tracking.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-bell"></i></div><div><h4>Push Notifications</h4><p>Real-time alerts for approvals, reminders, and critical updates.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-network-wired"></i></div><div><h4>Referral Network</h4><p>Track relationships with partner organizations and community stakeholders.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB: SECURITY -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-security">
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" style="background:#DCFCE7;color:var(--green);">Security</div>
+        <h2>Enterprise-Grade Compliance & Security</h2>
+        <p>Your data — and your clients' data — is protected by the same standards used by healthcare and education institutions.</p>
+      </div>
+      <div class="compliance-grid">
+        <div class="compliance-card">
+          <div class="compliance-icon" style="background:var(--gradient-1);"><i class="fas fa-shield-halved"></i></div>
+          <h3>HIPAA Ready</h3>
+          <p>BAA tracking, breach alerts, and full audit trail for protected health information.</p>
+        </div>
+        <div class="compliance-card">
+          <div class="compliance-icon" style="background:var(--gradient-3);"><i class="fas fa-user-graduate"></i></div>
+          <h3>FERPA Compliant</h3>
+          <p>Disclosure logs, access relationships, amendment requests, and retention policies.</p>
+        </div>
+        <div class="compliance-card">
+          <div class="compliance-icon" style="background:var(--gradient-2);"><i class="fas fa-lock"></i></div>
+          <h3>AES-256 Encryption</h3>
+          <p>Per-organization encryption keys protect data at rest and TLS 1.3 in transit.</p>
+        </div>
+        <div class="compliance-card">
+          <div class="compliance-icon" style="background:linear-gradient(135deg, var(--blue), var(--sky));"><i class="fas fa-user-lock"></i></div>
+          <h3>Role-Based Access</h3>
+          <p>5 access levels with two-factor authentication and complete audit trails.</p>
+        </div>
+      </div>
+
+      <!-- Extra security details -->
+      <div style="margin-top:40px;">
+        <div class="mobile-grid">
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-clipboard-check"></i></div><div><h4>Complete Audit Trail</h4><p>Every action tracked with timestamp, user, and details.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-key"></i></div><div><h4>Two-Factor Auth</h4><p>TOTP-based 2FA for all users with enforcement options.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-trash-can"></i></div><div><h4>Data Disposal</h4><p>Formal data disposal request workflows for compliance.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-building-shield"></i></div><div><h4>Per-Org Keys</h4><p>Each organization gets unique encryption keys via AWS KMS.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-bell"></i></div><div><h4>Push Notifications</h4><p>Real-time push notifications for approvals, reminders, and critical updates.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-triangle-exclamation"></i></div><div><h4>Breach Alerts</h4><p>Automated breach detection and notification system with incident logging.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-1);"><i class="fas fa-map-location-dot"></i></div><div><h4>Geo-Fencing & Mapping</h4><p>GPS-based geofencing, staff location map view, and location enforcement for field teams.</p></div></div>
+          <div class="mobile-card"><div class="mobile-card-icon" style="background:var(--gradient-2);"><i class="fas fa-location-dot"></i></div><div><h4>GPS Location on Clock-In</h4><p>Capture staff GPS coordinates at time clock events for accountability.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TAB: MOBILE & PORTAL -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="tab-panel" id="tab-mobile">
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag" style="background:#E0E7FF;color:var(--blue);">Multi-Platform</div>
+        <h2>Web, Mobile, and Client Portal</h2>
+        <p>Your team and your clients can access what they need from any device.</p>
+      </div>
+      <div class="feature-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+        <div class="feature-card teal">
+          <div class="card-icon teal"><i class="fas fa-mobile-screen-button"></i></div>
+          <h3>Mobile App (Staff)</h3>
+          <p>Everything your team needs in the field.</p>
+          <ul class="feature-list">
+            <li>Client lookup and case notes</li>
+            <li>Service delivery and trip reports</li>
+            <li>Timesheets and time clock</li>
+            <li>Leave requests and messaging</li>
+          </ul>
+        </div>
+        <div class="feature-card coral">
+          <div class="card-icon coral"><i class="fas fa-mobile-screen"></i></div>
+          <h3>Mobile App (Clients)</h3>
+          <p>Clients can view their dashboard, enrollments, referrals, and communicate.</p>
+          <ul class="feature-list">
+            <li>Personal dashboard</li>
+            <li>Authorizations and enrollments</li>
+            <li>Referral tracking</li>
+            <li>Secure messaging with staff</li>
+          </ul>
+        </div>
+        <div class="feature-card purple">
+          <div class="card-icon purple"><i class="fas fa-globe"></i></div>
+          <h3>Client Portal (Web)</h3>
+          <p>Self-service web portal with magic link authentication and MFA.</p>
+          <ul class="feature-list">
+            <li>Magic link authentication</li>
+            <li>Multi-factor authentication</li>
+            <li>Self-service profile management</li>
+            <li>Document access and messaging</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════ CTA (always visible) ══════ -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to Transform Your Operations?</h2>
+    <p>Join nonprofits that are spending less time on admin and more time on their mission.</p>
+    <a href="mailto:info@thegcodesystems.com?subject=Demo Request" class="btn btn-primary">Schedule a Free Demo</a>
+    <a href="mailto:info@thegcodesystems.com?subject=14-Day Free Trial" class="btn btn-outline">Start 14-Day Free Trial</a>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer style="background:var(--navy);color:var(--white);padding:44px 20px 30px;text-align:center;">
+  <div style="max-width:700px;margin:0 auto;">
+    <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;margin-bottom:6px;">The G-CODE Systems</div>
+    <p style="font-size:0.85rem;opacity:0.6;margin-bottom:16px;">All-in-one nonprofit management platform</p>
+    <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:16px;">
+      <a href="https://thegcodesystems.com/login" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;" onmouseover="this.style.color='#14b8a6'" onmouseout="this.style.color='rgba(255,255,255,0.7)'"><i class="fas fa-right-to-bracket" style="margin-right:5px;"></i>Log In</a>
+      <a href="GCODE_Help_Support.html" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;" onmouseover="this.style.color='#14b8a6'" onmouseout="this.style.color='rgba(255,255,255,0.7)'"><i class="fas fa-headset" style="margin-right:5px;"></i>Help & Support</a>
+      <a href="javascript:void(0);" onclick="document.getElementById('terms-modal').classList.add('open');" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;" onmouseover="this.style.color='#14b8a6'" onmouseout="this.style.color='rgba(255,255,255,0.7)'"><i class="fas fa-file-contract" style="margin-right:5px;"></i>Terms & Conditions</a>
+      <a href="mailto:info@thegcodesystems.com" style="color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;" onmouseover="this.style.color='#14b8a6'" onmouseout="this.style.color='rgba(255,255,255,0.7)'"><i class="fas fa-envelope" style="margin-right:5px;"></i>Contact Us</a>
+    </div>
+    <p style="font-size:0.8rem;opacity:0.5;">info@thegcodesystems.com &bull; thegcodesystems.com</p>
+    <p style="font-size:0.75rem;opacity:0.4;margin-top:12px;">&copy; 2026 The G-CODE Systems. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ══════ TERMS & CONDITIONS MODAL ══════ -->
+<div class="modal-overlay" id="terms-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('terms-modal').classList.remove('open');">&times;</button>
+    <h2>Terms & Conditions</h2>
+    <p class="modal-updated">Last Updated: March 1, 2026</p>
+
+    <h3>1. Acceptance of Terms</h3>
+    <p>By accessing or using The G-CODE Systems platform ("Service"), you agree to be bound by these Terms and Conditions. If you are using the Service on behalf of an organization, you represent that you have authority to bind that organization to these terms.</p>
+
+    <h3>2. Service Description</h3>
+    <p>The G-CODE Systems provides a cloud-based nonprofit management platform including case management, housing management, HR and payroll, fund accounting, reporting, and related modules. The Service is provided on a subscription basis as described in your service agreement.</p>
+
+    <h3>3. User Accounts & Access</h3>
+    <p>You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You must notify us immediately of any unauthorized use. Each user must have their own unique login credentials and account sharing is not permitted.</p>
+
+    <h3>4. Data Privacy & Security</h3>
+    <p>We take data security seriously. The Service is designed to comply with HIPAA and FERPA requirements. We employ AES-256 encryption, role-based access controls, two-factor authentication, and complete audit trails. Your data is encrypted at rest and in transit. For organizations handling protected health information (PHI), a Business Associate Agreement (BAA) is available upon request.</p>
+
+    <h3>5. Acceptable Use</h3>
+    <p>You agree to use the Service only for lawful purposes related to your nonprofit operations. You shall not:</p>
+    <ul>
+      <li>Share login credentials between users</li>
+      <li>Attempt to access data belonging to other organizations</li>
+      <li>Use the Service for any illegal or unauthorized purpose</li>
+      <li>Interfere with or disrupt the integrity of the Service</li>
+    </ul>
+
+    <h3>6. Subscription & Billing</h3>
+    <p>Subscriptions are billed monthly as outlined in your service agreement. All plans include access to all core features. Additional users beyond the plan limit are billed at the applicable per-user rate. A 14-day free trial is available for qualifying organizations.</p>
+
+    <h3>7. Data Ownership</h3>
+    <p>You retain all rights to data entered into the Service by you and your users. Upon termination of your subscription, you may request an export of your data. We will retain your data for a reasonable period following termination to allow for export before secure deletion.</p>
+
+    <h3>8. Service Availability</h3>
+    <p>We strive to maintain 99.9% uptime for the Service. Enterprise plan subscribers receive a Service Level Agreement (SLA) with defined uptime guarantees and remedies. Scheduled maintenance windows will be communicated in advance.</p>
+
+    <h3>9. Limitation of Liability</h3>
+    <p>To the maximum extent permitted by law, The G-CODE Systems shall not be liable for any indirect, incidental, or consequential damages arising from use of the Service. Our total liability shall not exceed the fees paid by you in the twelve months preceding the claim.</p>
+
+    <h3>10. Contact</h3>
+    <p>For questions about these terms, please contact us at <strong>info@thegcodesystems.com</strong>.</p>
+  </div>
+</div>
+
+<!-- ══════ TAB LOGIC ══════ -->
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Remove active from all buttons and panels
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    // Activate clicked
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    // Scroll to top of content
+    window.scrollTo({ top: document.querySelector('.tab-nav').offsetTop, behavior: 'smooth' });
+  });
+});
+
+// Close modal on overlay click
+document.getElementById('terms-modal').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('open');
+});
+
+// Close modal on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.getElementById('terms-modal').classList.remove('open');
+});
+
+// Tab bar scroll indicator — hide arrow when scrolled to end
+const tabInner = document.querySelector('.tab-nav-inner');
+const tabNav = document.querySelector('.tab-nav');
+function checkTabScroll() {
+  const atEnd = tabInner.scrollLeft + tabInner.clientWidth >= tabInner.scrollWidth - 10;
+  tabNav.classList.toggle('scrolled-end', atEnd);
+}
+tabInner.addEventListener('scroll', checkTabScroll);
+window.addEventListener('resize', checkTabScroll);
+checkTabScroll();
+
+// Scroll active tab into view when clicked
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  });
+});
+</script>
+
+</body>
+</html>
