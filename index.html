@@ -3,35 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The GCODE Nonprofit Systems — All-in-One Nonprofit Management</title>
-<meta name="description" content="One platform for case management, housing, HR, payroll, fund accounting, and funder reporting. Built by people who've done the work.">
+<title>The GCODE Nonprofit Systems | All-in-One Nonprofit Management</title>
+<meta name="description" content="One platform for case management, housing, HR, payroll, fund accounting, and funder reporting. Built by people who ran the programs.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
-  --navy: #0F1B2D;
-  --navy-light: #1a2d47;
-  --teal: #0D9488;
-  --teal-light: #14b8a6;
-  --teal-dark: #0a7c72;
-  --coral: #F97066;
-  --amber: #F59E0B;
-  --purple: #8B5CF6;
-  --blue: #3B82F6;
-  --green: #10B981;
-  --sky: #06B6D4;
+  /* GCODE brand: navy #0d2137 + gold #d4af37 (marketing/print standard) */
+  --navy: #0d2137;
+  --navy-light: #1a3454;
+  /* "teal" vars repurposed to brand gold so all existing usages re-theme at once */
+  --teal: #d4af37;
+  --teal-light: #e3c463;
+  --teal-dark: #b8962b;
+  --coral: #c9893f;
+  --amber: #d4af37;
+  --purple: #6d3fe0;
+  --blue: #2f4d75;
+  --green: #3f7d5c;
+  --sky: #4a6585;
   --white: #FFFFFF;
-  --off-white: #F8FAFC;
-  --gray-100: #F1F5F9;
-  --gray-200: #E2E8F0;
-  --gray-500: #64748B;
-  --gray-700: #334155;
-  --gradient-1: linear-gradient(135deg, #0D9488, #3B82F6);
-  --gradient-2: linear-gradient(135deg, #F97066, #F59E0B);
-  --gradient-3: linear-gradient(135deg, #8B5CF6, #EC4899);
-  --gradient-hero: linear-gradient(135deg, #0F1B2D 0%, #1a3a5c 50%, #0D9488 100%);
+  --off-white: #F8F7F4;
+  --gray-100: #F1EFEA;
+  --gray-200: #E4E0D7;
+  --gray-500: #6b6557;
+  --gray-700: #2e2a22;
+  --gradient-1: linear-gradient(135deg, #d4af37, #b8962b);
+  --gradient-2: linear-gradient(135deg, #c9893f, #d4af37);
+  --gradient-3: linear-gradient(135deg, #1a3454, #d4af37);
+  --gradient-hero: linear-gradient(135deg, #0d2137 0%, #14304f 55%, #1a3454 100%);
 }
 body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); background: var(--white); overflow-x: hidden; line-height: 1.6; }
 
@@ -280,8 +282,9 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
   margin: 0 auto 16px;
 }
 .diff-container .accent {
-  color: var(--teal-dark);
-  font-weight: 600;
+  color: var(--navy);
+  font-weight: 700;
+  border-bottom: 2px solid var(--teal);
 }
 
 /* ── WHO WE SERVE ── */
@@ -320,7 +323,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
 }
 .serve-item i {
   font-size: 20px;
-  color: var(--teal);
+  color: var(--teal-dark);
   flex-shrink: 0;
 }
 
@@ -363,7 +366,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
   color: rgba(255,255,255,0.6);
   padding: 40px 20px;
   text-align: center;
-  font-size: 0.88rem;
+  font-size: 0.880rem;
 }
 .footer a {
   color: var(--teal-light);
@@ -398,6 +401,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
     <a class="top-bar-link hide-mobile" href="features.html"><i class="fas fa-th-large"></i>Features</a>
     <a class="top-bar-link hide-mobile" href="our-story.html"><i class="fas fa-book-open"></i>Our Story</a>
     <a class="top-bar-link hide-mobile" href="support.html"><i class="fas fa-headset"></i>Support</a>
+    <a class="top-bar-link hide-mobile" href="https://app.thegcodesystems.com/public-calendar"><i class="fas fa-calendar"></i>Events</a>
     <a class="login-btn" href="https://app.thegcodesystems.com/login"><i class="fas fa-right-to-bracket"></i> Log In</a>
   </div>
 </header>
@@ -406,8 +410,8 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
 <section class="hero">
   <div class="hero-content">
     <div class="hero-badge">Nonprofit Management Platform</div>
-    <h1>One System for <span>Everything Your Nonprofit Does</span></h1>
-    <p>From intake to funder report, every service, every hour, every dollar — connected in one platform built by people who've done the work.</p>
+    <h1>Run your whole nonprofit in <span>one place</span></h1>
+    <p>Case management, housing, HR, payroll, and funder reporting that finally talk to each other. Built by people who ran the programs, not just the software.</p>
     <div class="hero-buttons">
       <a href="mailto:systemadmin@thegcodesystems.com" class="btn-primary">Request a Demo</a>
       <a href="features.html" class="btn-secondary">See All Features</a>
@@ -419,19 +423,19 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
 <section class="modules">
   <div class="modules-container">
     <div class="modules-header">
-      <h2>Everything in One Place</h2>
-      <p>Stop juggling five different systems. Your case notes, timesheets, payroll, housing, and funder reports all live together.</p>
+      <h2>Everything in one place</h2>
+      <p>Stop stitching together five different systems. Case notes, timesheets, payroll, housing, and funder reports all live in one platform, so the numbers match and nobody re-keys data.</p>
     </div>
     <div class="module-grid">
       <div class="module-card teal">
         <div class="card-icon teal"><i class="fas fa-users"></i></div>
         <h3>Case Management</h3>
-        <p>Intake, enrollments, service tracking, assessments, and progress notes — all tied to the client record and the funding source paying for it.</p>
+        <p>Intake, enrollments, service tracking, assessments, and progress notes, all tied to the client record and the funding source paying for it.</p>
       </div>
       <div class="module-card coral">
         <div class="card-icon coral"><i class="fas fa-house-chimney"></i></div>
         <h3>Housing Management</h3>
-        <p>Properties, units, beds, placements, waitlists, inspections, subsidy tracking, and housing pathways — shelter-style and apartment-style.</p>
+        <p>Properties, units, beds, placements, waitlists, inspections, and subsidy tracking, for both shelter-style and apartment-style housing.</p>
       </div>
       <div class="module-card purple">
         <div class="card-icon purple"><i class="fas fa-user-tie"></i></div>
@@ -460,16 +464,16 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
 <!-- ── DIFFERENTIATOR ── -->
 <section class="differentiator">
   <div class="diff-container">
-    <h2>The Part That Changes Everything</h2>
-    <p>Every service a staff member logs, every hour they work, every dollar spent — the system traces it back to the <span class="accent">specific grant or contract</span> that's paying for it.</p>
-    <p>When it's time to report to a funder, the data is already there. No scrambling. No spreadsheets. No guessing.</p>
+    <h2>Where the dollars actually go</h2>
+    <p>Every service a staff member logs, every hour they work, and every dollar spent traces back to the <span class="accent">specific grant or contract</span> that's paying for it.</p>
+    <p>So when a funder report comes due, the numbers are already there. No last-minute spreadsheets, no reconciling five systems by hand.</p>
   </div>
 </section>
 
 <!-- ── WHO WE SERVE ── -->
 <section class="serve">
   <div class="serve-container">
-    <h2>Built for Organizations Like Yours</h2>
+    <h2>Built for organizations like yours</h2>
     <div class="serve-grid">
       <div class="serve-item"><i class="fas fa-house-chimney-crack"></i> Homeless Shelters</div>
       <div class="serve-item"><i class="fas fa-brain"></i> Behavioral Health</div>
@@ -486,8 +490,8 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
 <!-- ── CTA ── -->
 <section class="cta-section">
   <div class="cta-content">
-    <h2>Ready to See It in Action?</h2>
-    <p>14-day free trial. No credit card required. Let us show you how The GCODE Nonprofit Systems can simplify your operations.</p>
+    <h2>See it with your own data</h2>
+    <p>Start a 14-day free trial, no credit card required. Or book a walkthrough and we'll show you how GCODE fits the way your organization actually works.</p>
     <a href="mailto:systemadmin@thegcodesystems.com" class="btn-primary">Request a Demo</a>
   </div>
 </section>
@@ -498,6 +502,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
     <a href="features.html">Features</a>
     <a href="our-story.html">Our Story</a>
     <a href="support.html">Help & Support</a>
+    <a href="https://app.thegcodesystems.com/public-calendar">Events</a>
     <a href="https://app.thegcodesystems.com/login">Log In</a>
   </div>
   <p>&copy; 2026 GCODE Systems Ltd. All rights reserved. &nbsp;|&nbsp; <a href="mailto:systemadmin@thegcodesystems.com">systemadmin@thegcodesystems.com</a></p>
