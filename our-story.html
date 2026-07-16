@@ -54,8 +54,16 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 10px;
+  margin-left: -10px;
+  border-radius: 8px;
+  transition: background 0.2s;
 }
+.top-bar-logo:hover { background: rgba(255,255,255,0.12); }
+.top-bar-logo:focus-visible { outline: 2px solid var(--teal-light); outline-offset: 2px; }
+.top-bar-logo img { height: 26px; width: auto; display: block; border-radius: 5px; }
 .top-bar-logo span { color: var(--teal-light); }
 .top-bar-links {
   display: flex;
@@ -327,9 +335,14 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
 
 <!-- ── TOP BAR ── -->
 <header class="top-bar">
-  <a class="top-bar-logo" href="index.html">The GCODE <span>Nonprofit Systems</span></a>
+  <a class="top-bar-logo" href="index.html" aria-label="The GCODE Nonprofit Systems — home">
+    <img src="gcode-logo.png" alt="" width="26" height="26">
+    The GCODE <span>Nonprofit Systems</span>
+  </a>
   <div class="top-bar-links">
+    <a class="top-bar-link hide-mobile" href="index.html"><i class="fas fa-house"></i>Home</a>
     <a class="top-bar-link hide-mobile" href="features.html"><i class="fas fa-th-large"></i>Features</a>
+    <a class="top-bar-link hide-mobile" href="index.html#pricing"><i class="fas fa-tag"></i>Pricing</a>
     <a class="top-bar-link hide-mobile" href="support.html"><i class="fas fa-headset"></i>Support</a>
     <a class="top-bar-link hide-mobile" href="https://app.thegcodesystems.com/public-calendar"><i class="fas fa-calendar"></i>Events</a>
     <a class="login-btn" href="https://app.thegcodesystems.com/login"><i class="fas fa-right-to-bracket"></i> Log In</a>

@@ -11,29 +11,29 @@
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
-  /* GCODE brand: navy #0d2137 + gold #d4af37 (marketing/print standard) */
-  --navy: #0d2137;
-  --navy-light: #1a3454;
+  /* GCODE brand: charcoal #1D2B33 + gold #C9A227 + teal #0F6E56 (marketing/print standard) */
+  --navy: #1D2B33;
+  --navy-light: #2A3D47;
   /* "teal" vars repurposed to brand gold so all existing usages re-theme at once */
-  --teal: #d4af37;
-  --teal-light: #e3c463;
-  --teal-dark: #b8962b;
-  --coral: #c9893f;
-  --amber: #d4af37;
-  --purple: #6d3fe0;
-  --blue: #2f4d75;
+  --teal: #C9A227;
+  --teal-light: #FEDE71;
+  --teal-dark: #AF7801;
+  --coral: #AF7801;
+  --amber: #C9A227;
+  --purple: #0F6E56;
+  --blue: #24333C;
   --green: #3f7d5c;
-  --sky: #4a6585;
+  --sky: #3A4D57;
   --white: #FFFFFF;
   --off-white: #F8F7F4;
   --gray-100: #F1EFEA;
   --gray-200: #E4E0D7;
   --gray-500: #6b6557;
   --gray-700: #2e2a22;
-  --gradient-1: linear-gradient(135deg, #d4af37, #b8962b);
-  --gradient-2: linear-gradient(135deg, #c9893f, #d4af37);
-  --gradient-3: linear-gradient(135deg, #1a3454, #d4af37);
-  --gradient-hero: linear-gradient(135deg, #0d2137 0%, #14304f 55%, #1a3454 100%);
+  --gradient-1: linear-gradient(135deg, #C9A227, #AF7801);
+  --gradient-2: linear-gradient(135deg, #AF7801, #C9A227);
+  --gradient-3: linear-gradient(135deg, #2A3D47, #C9A227);
+  --gradient-hero: linear-gradient(135deg, #1D2B33 0%, #24333C 55%, #2A3D47 100%);
 }
 body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); background: var(--white); overflow-x: hidden; line-height: 1.6; }
 
@@ -58,8 +58,16 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 10px;
+  margin-left: -10px;
+  border-radius: 8px;
+  transition: background 0.2s;
 }
+.top-bar-logo:hover { background: rgba(255,255,255,0.12); }
+.top-bar-logo:focus-visible { outline: 2px solid var(--teal-light); outline-offset: 2px; }
+.top-bar-logo img { height: 26px; width: auto; display: block; border-radius: 5px; }
 .top-bar-logo span { color: var(--teal-light); }
 .top-bar-links {
   display: flex;
@@ -381,6 +389,99 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
   flex-wrap: wrap;
 }
 
+/* ── PRICING ──
+   Prices mirror packages/shared/src/subscription-tiers.ts in the app repo
+   (SUBSCRIPTION_TIERS). That file is the source of truth and the app's
+   /pricing page reads it live; this static copy must be updated by hand
+   whenever a tier price changes there. */
+.pricing {
+  padding: 80px 20px;
+  background: var(--off-white);
+}
+.pricing-container {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.pricing-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.pricing-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+.pricing-header p {
+  font-size: 1.05rem;
+  color: var(--gray-500);
+  max-width: 640px;
+  margin: 0 auto;
+}
+.pricing-allaccess {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 40px;
+  padding: 12px 22px;
+  max-width: fit-content;
+  background: rgba(201,162,39,0.1);
+  border: 1px solid var(--teal);
+  border-radius: 100px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+.pricing-allaccess i { color: var(--teal-dark); }
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 22px;
+  align-items: start;
+}
+.pricing-card {
+  background: var(--white); border-radius: 22px; padding: 36px 26px;
+  border: 2px solid var(--gray-200); text-align: center;
+  position: relative; transition: all 0.3s ease;
+}
+.pricing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(15,27,45,0.08); }
+.pricing-card.featured { border-color: var(--teal); box-shadow: 0 16px 48px rgba(201,162,39,0.14); }
+.pricing-popular {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--gradient-2); color: var(--white);
+  padding: 5px 22px; border-radius: 100px; white-space: nowrap;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+}
+.pricing-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.pricing-price { font-size: 2.4rem; font-weight: 900; color: var(--navy); margin: 14px 0 4px; }
+.pricing-price span { font-size: 0.95rem; font-weight: 500; color: var(--gray-500); }
+.pricing-users { font-size: 0.88rem; color: var(--gray-500); margin-bottom: 18px; }
+.pricing-divider { height: 1px; background: var(--gray-200); margin: 0 -26px 18px; }
+/* One <span> child, not bare text nodes + <strong>: flex treats each text node as
+   its own item and drops the whitespace between them ("or$2,199.99/yr— save 8%"). */
+.pricing-annual {
+  font-size: 0.85rem; color: var(--gray-500); min-height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; margin-bottom: 18px;
+}
+.pricing-annual strong { color: var(--navy); font-weight: 700; }
+.pricing-cta {
+  display: block; padding: 11px 18px; border-radius: 8px;
+  font-weight: 600; font-size: 0.9rem; text-decoration: none;
+  border: 2px solid var(--teal); color: var(--teal-dark);
+  transition: all 0.2s;
+}
+.pricing-cta:hover { background: var(--teal); color: var(--white); }
+.pricing-card.featured .pricing-cta { background: var(--teal); color: var(--white); }
+.pricing-card.featured .pricing-cta:hover { background: var(--teal-dark); border-color: var(--teal-dark); }
+.pricing-note {
+  text-align: center; margin-top: 34px;
+  font-size: 0.9rem; color: var(--gray-500);
+}
+.pricing-note a { color: var(--teal-dark); font-weight: 600; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .top-bar-logo { font-size: 1rem; }
@@ -388,6 +489,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
   .hero { padding: 70px 16px 60px; }
   .hero-buttons { flex-direction: column; align-items: center; }
   .modules, .differentiator, .serve { padding: 50px 16px; }
+  .pricing { padding: 50px 16px; }
   .cta-section { padding: 50px 16px; }
 }
 </style>
@@ -396,9 +498,14 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
 
 <!-- ── TOP BAR ── -->
 <header class="top-bar">
-  <a class="top-bar-logo" href="index.html">The GCODE <span>Nonprofit Systems</span></a>
+  <a class="top-bar-logo" href="index.html" aria-label="The GCODE Nonprofit Systems — home">
+    <img src="gcode-logo.png" alt="" width="26" height="26">
+    The GCODE <span>Nonprofit Systems</span>
+  </a>
   <div class="top-bar-links">
+    <a class="top-bar-link hide-mobile" href="index.html"><i class="fas fa-house"></i>Home</a>
     <a class="top-bar-link hide-mobile" href="features.html"><i class="fas fa-th-large"></i>Features</a>
+    <a class="top-bar-link hide-mobile" href="#pricing"><i class="fas fa-tag"></i>Pricing</a>
     <a class="top-bar-link hide-mobile" href="our-story.html"><i class="fas fa-book-open"></i>Our Story</a>
     <a class="top-bar-link hide-mobile" href="support.html"><i class="fas fa-headset"></i>Support</a>
     <a class="top-bar-link hide-mobile" href="https://app.thegcodesystems.com/public-calendar"><i class="fas fa-calendar"></i>Events</a>
@@ -484,6 +591,67 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
       <div class="serve-item"><i class="fas fa-utensils"></i> Food Banks</div>
       <div class="serve-item"><i class="fas fa-building-ngo"></i> Multi-Service Agencies</div>
     </div>
+  </div>
+</section>
+
+<!-- ── PRICING ── -->
+<section class="pricing" id="pricing">
+  <div class="pricing-container">
+    <div class="pricing-header">
+      <h2>Simple, transparent pricing</h2>
+      <p>You are not buying modules one at a time. Every plan includes the whole platform, so the only question is how many people on your team need a login.</p>
+    </div>
+    <div class="pricing-allaccess">
+      <i class="fas fa-circle-check"></i> All 35+ modules included on every plan
+    </div>
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <h3>Individual</h3>
+        <div class="pricing-price">$49.99<span>/mo</span></div>
+        <div class="pricing-users">1 user</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-annual"><span>Monthly billing only</span></div>
+        <a class="pricing-cta" href="https://app.thegcodesystems.com/get-started?tier=individual&amp;billing=monthly">Get started</a>
+      </div>
+
+      <div class="pricing-card">
+        <h3>Team</h3>
+        <div class="pricing-price">$199.99<span>/mo</span></div>
+        <div class="pricing-users">Up to 5 users</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-annual"><span>or <strong>$2,199.99/yr</strong> &mdash; save 8%</span></div>
+        <a class="pricing-cta" href="https://app.thegcodesystems.com/get-started?tier=team_5&amp;billing=monthly">Get started</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <!-- Badge sits on team_10 because $349.99/10 = $35.00/user is the lowest
+             MONTHLY per-user rate of any tier (team_5 and team_20 are both $40.00).
+             Claim is scoped to "monthly" deliberately: on annual billing team_20
+             is cheaper per user ($29.17). Verified against subscription-tiers.ts. -->
+        <div class="pricing-popular">Best monthly value</div>
+        <h3>Team</h3>
+        <div class="pricing-price">$349.99<span>/mo</span></div>
+        <div class="pricing-users">Up to 10 users</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-annual"><span>or <strong>$3,999.99/yr</strong> &mdash; save 5%</span></div>
+        <a class="pricing-cta" href="https://app.thegcodesystems.com/get-started?tier=team_10&amp;billing=monthly">Get started</a>
+      </div>
+
+      <div class="pricing-card">
+        <h3>Team</h3>
+        <div class="pricing-price">$799.99<span>/mo</span></div>
+        <div class="pricing-users">Up to 20 users</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-annual"><span>or <strong>$6,999.99/yr</strong> &mdash; save 27%</span></div>
+        <a class="pricing-cta" href="https://app.thegcodesystems.com/get-started?tier=team_20&amp;billing=annual">Get started</a>
+      </div>
+
+    </div>
+    <p class="pricing-note">
+      Need more than 20 users, or want setup and training quoted?
+      <a href="mailto:info@thegcodesystems.com?subject=Pricing question">Talk to us</a>.
+    </p>
   </div>
 </section>
 
