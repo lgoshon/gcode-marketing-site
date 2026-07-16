@@ -608,42 +608,45 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--navy); back
 
       <div class="pricing-card">
         <h3>Individual</h3>
-        <div class="pricing-price">$49.99<span>/mo</span></div>
+        <div class="pricing-price">$100<span>/mo</span></div>
         <div class="pricing-users">1 user</div>
         <div class="pricing-divider"></div>
-        <div class="pricing-annual"><span>Monthly billing only</span></div>
+        <div class="pricing-annual"><span>or <strong>$1,000/yr</strong> &mdash; save 17%</span></div>
         <a class="pricing-cta" href="https://app.thegcodesystems.com/get-started?tier=individual&amp;billing=monthly">Get started</a>
       </div>
 
       <div class="pricing-card">
         <h3>Team</h3>
-        <div class="pricing-price">$199.99<span>/mo</span></div>
+        <div class="pricing-price">$450<span>/mo</span></div>
         <div class="pricing-users">Up to 5 users</div>
         <div class="pricing-divider"></div>
-        <div class="pricing-annual"><span>or <strong>$2,199.99/yr</strong> &mdash; save 8%</span></div>
+        <div class="pricing-annual"><span>or <strong>$4,000/yr</strong> &mdash; save 26%</span></div>
         <a class="pricing-cta" href="https://app.thegcodesystems.com/get-started?tier=team_5&amp;billing=monthly">Get started</a>
       </div>
 
       <div class="pricing-card featured">
-        <!-- Badge sits on team_10 because $349.99/10 = $35.00/user is the lowest
-             MONTHLY per-user rate of any tier (team_5 and team_20 are both $40.00).
-             Claim is scoped to "monthly" deliberately: on annual billing team_20
-             is cheaper per user ($29.17). Verified against subscription-tiers.ts. -->
-        <div class="pricing-popular">Best monthly value</div>
+        <!-- Effective 2026-07-07 pricing overhaul: per-user monthly rate now
+             declines monotonically with team size ($100 -> $90 -> $80 -> $75),
+             so team_20 is technically the best per-user value on both monthly
+             and annual billing. Badge stays on team_10 as the middle "sweet
+             spot" tier (matches apps/web/src/app/pricing/page.tsx, which
+             also highlights team_10) rather than making a per-user claim that
+             would point at team_20 instead. Verified against subscription-tiers.ts. -->
+        <div class="pricing-popular">Most Popular</div>
         <h3>Team</h3>
-        <div class="pricing-price">$349.99<span>/mo</span></div>
+        <div class="pricing-price">$800<span>/mo</span></div>
         <div class="pricing-users">Up to 10 users</div>
         <div class="pricing-divider"></div>
-        <div class="pricing-annual"><span>or <strong>$3,999.99/yr</strong> &mdash; save 5%</span></div>
+        <div class="pricing-annual"><span>or <strong>$7,000/yr</strong> &mdash; save 27%</span></div>
         <a class="pricing-cta" href="https://app.thegcodesystems.com/get-started?tier=team_10&amp;billing=monthly">Get started</a>
       </div>
 
       <div class="pricing-card">
         <h3>Team</h3>
-        <div class="pricing-price">$799.99<span>/mo</span></div>
+        <div class="pricing-price">$1,500<span>/mo</span></div>
         <div class="pricing-users">Up to 20 users</div>
         <div class="pricing-divider"></div>
-        <div class="pricing-annual"><span>or <strong>$6,999.99/yr</strong> &mdash; save 27%</span></div>
+        <div class="pricing-annual"><span>or <strong>$13,500/yr</strong> &mdash; save 25%</span></div>
         <a class="pricing-cta" href="https://app.thegcodesystems.com/get-started?tier=team_20&amp;billing=annual">Get started</a>
       </div>
 
